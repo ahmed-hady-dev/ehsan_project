@@ -13,6 +13,7 @@ import 'core/theme/theme_cubit.dart';
 import 'core/blocObserver/bloc_observer.dart';
 import 'core/dioHelper/dio_helper.dart';
 import 'core/router/router.dart';
+import 'view/on_boarding/on_boarding_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,15 +35,18 @@ void main() async {
   //===============================================================
   await CacheHelper.init();
   await CacheHelper.getTheme ?? await CacheHelper.cacheTheme(value: false);
+  await CacheHelper.getOnBoarding ?? await CacheHelper.cacheOnBoarding(value: false);
   bool? isDark = await CacheHelper.getTheme;
+  bool? isOnBoardingDone = await CacheHelper.getOnBoarding;
   //===============================================================
   BlocOverrides.runZoned(
     () {
       runApp(EasyLocalization(
-        child: MyApp(isDark: isDark!, home: home!),
+        child: MyApp(isDark: isDark!, isOnBoardingDone: isOnBoardingDone!, home: home!),
         path: 'assets/translation',
-        supportedLocales: const [Locale('en', 'US'), Locale('ar', 'EG')],
-        fallbackLocale: const Locale('en', 'US'),
+        startLocale: const Locale('ar', 'EG'),
+        supportedLocales: const [Locale('ar', 'EG'), Locale('en', 'US')],
+        fallbackLocale: const Locale('ar', 'EG'),
       ));
     },
     blocObserver: MyBlocObserver(),
@@ -50,16 +54,15 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key, this.isDark, required this.home}) : super(key: key);
-  final bool? isDark;
+  const MyApp({Key? key, required this.isDark, required this.home, required this.isOnBoardingDone}) : super(key: key);
+  final bool isDark;
+  final bool isOnBoardingDone;
   final Widget home;
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
-          BlocProvider(
-              create: (context) =>
-                  ThemeCubit()..changeTheme(themeModeFromCache: isDark)),
+          BlocProvider(create: (context) => ThemeCubit()..changeTheme(themeModeFromCache: isDark)),
         ],
         child: BlocBuilder<ThemeCubit, ThemeState>(
           builder: (context, state) {
@@ -76,7 +79,7 @@ class MyApp extends StatelessWidget {
               locale: context.locale,
               supportedLocales: context.supportedLocales,
               localizationsDelegates: context.localizationDelegates,
-              home: HomeView(),
+              home: isOnBoardingDone ? const HomeView() : OnBoardingView(),
             );
           },
         ));
