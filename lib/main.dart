@@ -79,7 +79,7 @@ class MyApp extends StatelessWidget {
               locale: context.locale,
               supportedLocales: context.supportedLocales,
               localizationsDelegates: context.localizationDelegates,
-              home: isOnBoardingDone ? const HomeView() : OnBoardingView(),
+              home: isOnBoardingDone ? const LoginView() : OnBoardingView(),
             );
           },
         ));

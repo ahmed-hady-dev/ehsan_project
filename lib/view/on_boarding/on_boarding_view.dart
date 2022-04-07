@@ -1,7 +1,7 @@
 import 'package:ehsan_project/constants/app_colors.dart';
 import 'package:ehsan_project/core/getStorageCacheHelper/get_storage_cache_helper.dart';
 import 'package:ehsan_project/core/router/router.dart';
-import 'package:ehsan_project/view/home/home_view.dart';
+import 'package:ehsan_project/view/login/login_view.dart';
 import 'package:ehsan_project/widgets/main_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_onboard/flutter_onboard.dart';
@@ -45,7 +45,7 @@ class OnBoardingView extends StatelessWidget {
 
   Future<void> done() async {
     await CacheHelper.cacheOnBoarding(value: true);
-    MagicRouter.navigateAndPopAll(const HomeView());
+    MagicRouter.navigateAndPopAll(const LoginView());
   }
 
   void _onNextTap(OnBoardState onBoardState) async {

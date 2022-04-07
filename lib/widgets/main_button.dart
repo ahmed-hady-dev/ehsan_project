@@ -8,12 +8,12 @@ class MainButton extends StatelessWidget {
   final double? verticalPadding;
   final double? horizontalPadding;
   const MainButton(
-      {required this.text, required this.onPressed, Key? key, this.verticalPadding = 12, this.horizontalPadding = 20.0})
+      {required this.text, required this.onPressed, Key? key, this.verticalPadding = 12, this.horizontalPadding = 16.0})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    const primaryColor = AppColors.blue1;
+    const primaryColor = AppColors.blue6;
     const secondaryColor = AppColors.blue3;
     const accentColor = Color(0xffffffff);
 

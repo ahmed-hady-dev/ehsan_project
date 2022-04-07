@@ -1,3 +1,4 @@
+import 'package:ehsan_project/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 ThemeData lightTheme(BuildContext context) {
@@ -17,16 +18,24 @@ ThemeData lightTheme(BuildContext context) {
           fontFamily: 'Helvetica',
         ),
     inputDecorationTheme: InputDecorationTheme(
-      focusColor: Colors.black,
-      filled: true,
+      focusColor: AppColors.blue6,
+      filled: false,
       contentPadding: const EdgeInsets.all(8),
       border: OutlineInputBorder(
-        borderSide: const BorderSide(color: Colors.black),
-        borderRadius: BorderRadius.circular(50),
+        borderSide: const BorderSide(color: AppColors.blue6),
+        borderRadius: BorderRadius.circular(18),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: AppColors.blue6),
+        borderRadius: BorderRadius.circular(18),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: Colors.black),
-        borderRadius: BorderRadius.circular(50),
+        borderSide: const BorderSide(color: AppColors.blue6),
+        borderRadius: BorderRadius.circular(18),
+      ),
+      disabledBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: AppColors.blue6),
+        borderRadius: BorderRadius.circular(18),
       ),
     ),
     textSelectionTheme: const TextSelectionThemeData(
@@ -65,10 +74,8 @@ ThemeData darkTheme(BuildContext context) {
       filled: true,
       contentPadding: const EdgeInsets.all(8),
       border: OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
-      focusedBorder:
-          OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
-      enabledBorder:
-          OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
+      focusedBorder: OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
+      enabledBorder: OutlineInputBorder(borderSide: Divider.createBorderSide(context)),
     ),
     brightness: Brightness.dark,
     dividerColor: Colors.white,
