@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants/app_colors.dart';
+
 class ConfirmPasswordTextField extends StatelessWidget {
   const ConfirmPasswordTextField({
     Key? key,
@@ -9,6 +11,7 @@ class ConfirmPasswordTextField extends StatelessWidget {
     required this.obscureText,
     required this.onPressed,
     required this.icon,
+    this.focusNode,
   }) : super(key: key);
 
   final String hintText;
@@ -17,6 +20,7 @@ class ConfirmPasswordTextField extends StatelessWidget {
   final bool obscureText;
   final Function() onPressed;
   final IconData icon;
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -36,15 +40,21 @@ class ConfirmPasswordTextField extends StatelessWidget {
         }
       },
       onFieldSubmitted: onFieldSubmitted,
+      focusNode: focusNode,
       decoration: InputDecoration(
         isDense: true,
         hintText: hintText,
-        border: const OutlineInputBorder(),
-        prefixIcon: const Icon(Icons.lock_outlined, size: 24.0),
-        suffixIcon: IconButton(
-          onPressed: onPressed,
-          icon: Icon(icon),
+        prefixIcon: const Icon(
+          Icons.lock_outlined,
+          size: 24.0,
+          color: AppColors.blue6,
         ),
+        suffixIcon: IconButton(
+            onPressed: onPressed,
+            icon: Icon(
+              icon,
+              color: AppColors.blue6,
+            )),
       ),
     );
   }

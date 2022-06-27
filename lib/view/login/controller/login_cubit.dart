@@ -28,28 +28,6 @@ class LoginCubit extends Cubit<LoginState> {
     required String password,
   }) async {
     emit(LoginLoadingState());
-    // final token = await FirebaseMessagingHelper.getToken();
-    // final response = await DioHelper.postData(
-    //   url: login,
-    //   data: {
-    //     'email': email,
-    //     'password': password,
-    //     'notifi_token': token,
-    //   },
-    // );
-    // try {
-    //   userModel = UserModel.fromJson(response.data);
-    //   if (userModel!.accessToken != null)
-    //     CacheHelper.cacheUserInfo(
-    //         token: userModel!.accessToken!.toString(), userModel: userModel!);
-    //   emit(LoginSuccessState(userModel: userModel!));
-    // } on DioError catch (e) {
-    //   debugPrint(e.error.toString());
-    // } catch (e, s) {
-    //   debugPrint(e.toString());
-    //   debugPrint(s.toString());
-    //   emit(LoginLErrorState(error: e.toString()));
-    // }
   }
 
 //===============================================================

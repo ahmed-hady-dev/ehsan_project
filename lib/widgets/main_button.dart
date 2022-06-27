@@ -8,7 +8,7 @@ class MainButton extends StatelessWidget {
   final double? verticalPadding;
   final double? horizontalPadding;
   const MainButton(
-      {required this.text, required this.onPressed, Key? key, this.verticalPadding = 12, this.horizontalPadding = 16.0})
+      {required this.text, required this.onPressed, Key? key, this.verticalPadding = 12, this.horizontalPadding = 0.0})
       : super(key: key);
 
   @override

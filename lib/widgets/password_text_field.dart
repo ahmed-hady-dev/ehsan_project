@@ -12,6 +12,7 @@ class PasswordTextField extends StatelessWidget {
     required this.obscureText,
     required this.onPressed,
     required this.icon,
+    this.focusNode,
   }) : super(key: key);
 
   final String hintText;
@@ -20,6 +21,7 @@ class PasswordTextField extends StatelessWidget {
   final bool obscureText;
   final Function() onPressed;
   final IconData icon;
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +41,7 @@ class PasswordTextField extends StatelessWidget {
         }
       },
       onFieldSubmitted: onFieldSubmitted,
+      focusNode: focusNode,
       decoration: InputDecoration(
         isDense: true,
         hintText: hintText,

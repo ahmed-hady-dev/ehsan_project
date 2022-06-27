@@ -10,9 +10,12 @@ class EmailTextField extends StatelessWidget {
     required this.hintText,
     required this.controller,
     required this.onFieldSubmitted,
+    this.focusNode,
   }) : super(key: key);
 
   final String hintText;
+  final FocusNode? focusNode;
+
   final TextEditingController? controller;
   final Function(String)? onFieldSubmitted;
 
@@ -31,6 +34,7 @@ class EmailTextField extends StatelessWidget {
         }
       },
       onFieldSubmitted: onFieldSubmitted,
+      focusNode: focusNode,
       decoration: InputDecoration(
           hintText: hintText,
           prefixIcon: const Icon(

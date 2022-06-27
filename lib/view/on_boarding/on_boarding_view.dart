@@ -36,6 +36,7 @@ class OnBoardingView extends StatelessWidget {
             return MainButton(
               text: state.isLastPage ? "تم" : "التالي",
               onPressed: () => _onNextTap(state),
+              horizontalPadding: 16.0,
             );
           },
         ),

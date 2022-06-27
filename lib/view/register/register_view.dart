@@ -1,17 +1,11 @@
-// ignore_for_file: implementation_imports
-
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
-import 'package:easy_localization/src/public_ext.dart';
+import 'package:ehsan_project/view/register/components/date_text_field.dart';
+import 'package:ehsan_project/widgets/logo_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ehsan_project/constants/app_colors.dart';
-import 'package:ehsan_project/core/router/router.dart';
-import 'package:ehsan_project/view/home/home_view.dart';
 import 'package:ehsan_project/view/register/Controller/register_cubit.dart';
 import 'package:ehsan_project/view/register/Controller/register_state.dart';
-import 'package:ehsan_project/view/register/components/area_of_city_drop_down_button.dart';
-import 'package:ehsan_project/view/register/components/city_drop_down_button.dart';
 import 'package:ehsan_project/widgets/confirm_password_text_field.dart';
 import 'package:ehsan_project/widgets/email_text_field.dart';
 import 'package:ehsan_project/widgets/loading_widget.dart';
@@ -21,186 +15,120 @@ import 'package:ehsan_project/widgets/password_text_field.dart';
 import 'package:ehsan_project/widgets/phone_text_field.dart';
 import 'package:ehsan_project/widgets/last_name_text_field.dart';
 
-import 'components/shimmer_drop_down_button.dart';
+import 'components/address_text_field.dart';
+import 'components/blood_type_text_field.dart';
 
 class RegisterView extends StatelessWidget {
   const RegisterView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(title: Text("register.appBar_title".tr())),
-        body: BlocProvider(
-          create: (context) => RegisterCubit(),
-          child: BlocConsumer<RegisterCubit, RegisterState>(
-            listener: (context, state) {
-              if (state is RegisterSuccessState) {
-                if (state.userModel.tokenType == 'bearer') {
-                  Fluttertoast.showToast(msg: "register.success".tr());
-                  MagicRouter.navigateAndPopAll(const HomeView());
-                } else if (state.userModel.errors!.email != null) {
-                  Fluttertoast.showToast(msg: state.userModel.errors!.email!.join());
-                } else if (state.userModel.errors!.phone != null) {
-                  Fluttertoast.showToast(msg: state.userModel.errors!.phone!.join());
-                }
-              }
-            },
-            builder: (context, state) {
-              final cubit = RegisterCubit.get(context);
-              return Form(
-                key: cubit.formKey,
-                child: ListView(
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      child: AutoSizeText("login.continue_with_email".tr(),
-                          softWrap: true, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 24.0)),
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                            flex: 1,
-                            child: FirstNameTextField(
-                              hintText: "register.first_name".tr(),
-                              controller: cubit.firstNameController,
-                              onFieldSubmitted: (value) {
-                                if (cubit.formKey.currentState!.validate()) {}
-                              },
-                            )),
-                        const SizedBox(width: 12),
-                        Expanded(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        iconTheme: const IconThemeData(color: AppColors.blue6),
+      ),
+      body: BlocProvider(
+        create: (context) => RegisterCubit(),
+        child: BlocConsumer<RegisterCubit, RegisterState>(
+          listener: (context, state) {
+            // if (state is RegisterSuccessState) {
+            //   if (state.userModel.tokenType == 'bearer') {
+            //     Fluttertoast.showToast(msg: "register.success".tr());
+            //     MagicRouter.navigateAndPopAll(const HomeView());
+            //   } else if (state.userModel.errors!.email != null) {
+            //     Fluttertoast.showToast(msg: state.userModel.errors!.email!.join());
+            //   } else if (state.userModel.errors!.phone != null) {
+            //     Fluttertoast.showToast(msg: state.userModel.errors!.phone!.join());
+            //   }
+            // }
+          },
+          builder: (context, state) {
+            final cubit = RegisterCubit.get(context);
+            return Form(
+              key: cubit.formKey,
+              child: ListView(
+                shrinkWrap: true,
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                children: <Widget>[
+                  const LogoImage(topPadding: 0, bottomPadding: 48.0),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
                           flex: 1,
-                          child: LastNameTextField(
-                            hintText: "register.last_name".tr(),
-                            controller: cubit.lastNameController,
-                            onFieldSubmitted: (value) {
-                              if (cubit.formKey.currentState!.validate()) {}
-                            },
-                          ),
+                          child: FirstNameTextField(
+                            hintText: "الإسم الأول",
+                            controller: cubit.firstNameController,
+                            focusNode: cubit.firstNameFocusNode,
+                            onFieldSubmitted: (_) => cubit.lastNameFocusNode.requestFocus(),
+                          )),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        flex: 1,
+                        child: LastNameTextField(
+                          hintText: "الإسم الأخير",
+                          controller: cubit.lastNameController,
+                          focusNode: cubit.lastNameFocusNode,
+                          onFieldSubmitted: (_) => cubit.emailFocusNode.requestFocus(),
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 12.0),
-                    EmailTextField(
-                      hintText: "register.email".tr(),
-                      controller: cubit.emailController,
-                      onFieldSubmitted: (value) {
-                        if (cubit.formKey.currentState!.validate()) {}
-                      },
-                    ),
-                    const SizedBox(height: 12.0),
-                    PhoneTextField(
-                        hintText: "register.phone".tr(),
-                        controller: cubit.phoneController,
-                        onFieldSubmitted: (value) {
-                          if (cubit.formKey.currentState!.validate()) {}
-                        }),
-                    const SizedBox(height: 12.0),
-                    PasswordTextField(
-                        hintText: "register.password".tr(),
-                        controller: cubit.passwordController,
-                        onFieldSubmitted: (value) {
-                          if (cubit.formKey.currentState!.validate()) {}
-                        },
-                        obscureText: cubit.isPassword,
-                        onPressed: () => cubit.changePasswordVisibility(),
-                        icon: cubit.suffix),
-                    const SizedBox(height: 12.0),
-                    ConfirmPasswordTextField(
-                        hintText: "register.confirm_password".tr(),
-                        controller: cubit.confirmPasswordController,
-                        onFieldSubmitted: (value) {
-                          if (cubit.formKey.currentState!.validate()) {}
-                        },
-                        obscureText: cubit.isPasswordConfirm,
-                        onPressed: () => cubit.changeConfirmPasswordVisibility(),
-                        icon: cubit.suffixConfirm),
-                    const SizedBox(height: 12.0),
-                    cubit.cityModel == null
-                        ? const ShimmerDropDownButton()
-                        : CityDropDownButton(
-                            itemsList: cubit.cityModel!.data!,
-                            value: cubit.cityDropDownValue,
-                            onChanged: (value) {
-                              cubit.changeCityDropDown(value: value);
-                              debugPrint(value);
-                              cubit.areaOfCityDropDownValue = null;
-                              // cubit.getAreaOfCityById(areaId: int.parse(value!));
-                            }),
-                    const SizedBox(height: 12.0),
-                    cubit.cityDropDownValue == null
-                        ? const SizedBox()
-                        : state is GetAreaOfCityLoading
-                            ? const ShimmerDropDownButton()
-                            : AreaOfCityDropDownButton(
-                                itemsList: cubit.areaOfCityModel!.data!,
-                                value: cubit.areaOfCityDropDownValue,
-                                onChanged: (value) {
-                                  cubit.changeAreaOfCityDropDown(value: value);
-                                },
-                              ),
-                    const SizedBox(height: 12.0),
-                    Row(
-                      children: <Widget>[
-                        Checkbox(
-                            value: cubit.isChecked,
-                            activeColor: AppColors.blue3,
-                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            onChanged: (value) => cubit.changeCheckBox(value!)),
-                        Expanded(
-                          child: Text("register.checkbox_text".tr(),
-                              maxLines: 2,
-                              softWrap: true,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(fontSize: 16.0)),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12.0),
+                  EmailTextField(
+                    hintText: "البريد الإلكتروني",
+                    controller: cubit.emailController,
+                    focusNode: cubit.emailFocusNode,
+                    onFieldSubmitted: (_) => cubit.passwordFocusNode.requestFocus(),
+                  ),
+                  const SizedBox(height: 12.0),
+                  PasswordTextField(
+                      hintText: "كلمة السر",
+                      controller: cubit.passwordController,
+                      focusNode: cubit.passwordFocusNode,
+                      onFieldSubmitted: (_) => cubit.confirmPasswordFocusNode.requestFocus(),
+                      obscureText: cubit.isPassword,
+                      onPressed: () => cubit.changePasswordVisibility(),
+                      icon: cubit.suffix),
+                  const SizedBox(height: 12.0),
+                  ConfirmPasswordTextField(
+                      hintText: "تأكيد كلمة السر",
+                      controller: cubit.confirmPasswordController,
+                      focusNode: cubit.confirmPasswordFocusNode,
+                      onFieldSubmitted: (_) => cubit.phoneFocusNode.requestFocus(),
+                      obscureText: cubit.isPasswordConfirm,
+                      onPressed: () => cubit.changeConfirmPasswordVisibility(),
+                      icon: cubit.suffixConfirm),
+                  const SizedBox(height: 12.0),
+                  PhoneTextField(
+                      hintText: "رقم الهاتف",
+                      controller: cubit.phoneController,
+                      focusNode: cubit.phoneFocusNode,
+                      onFieldSubmitted: (_) => cubit.bloodTypeFocusNode.requestFocus()),
+                  const SizedBox(height: 12.0),
+                  BloodTypeTextField(
+                      hintText: "فصيلة الدم",
+                      controller: cubit.bloodTypeController,
+                      focusNode: cubit.bloodTypeFocusNode,
+                      onFieldSubmitted: (_) => cubit.addressFocusNode.requestFocus()),
+                  const SizedBox(height: 12.0),
+                  AddressTextField(
+                      hintText: "العنوان",
+                      controller: cubit.addressController,
+                      focusNode: cubit.addressFocusNode,
+                      onFieldSubmitted: (_) => cubit.registerWithEmail()),
+                  const SizedBox(height: 12.0),
+                  state is RegisterLoadingState
+                      ? const LoadingWidget()
+                      : MainButton(
+                          text: 'إنشاء حساب',
+                          onPressed: () => cubit.registerWithEmail(),
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 24.0),
-                    state is RegisterLoadingState
-                        ? const LoadingWidget()
-                        : MainButton(
-                            text: "login.create_account".tr(),
-                            onPressed: () {
-                              if (cubit.cityDropDownValue == null) {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(content: Text("register.please_choose_city".tr())));
-                              }
-                              if (cubit.areaOfCityDropDownValue == null && cubit.areaOfCityModel != null) {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(content: Text("register.please_choose_area".tr())));
-                              }
-                              if (cubit.passwordController.value.text != cubit.confirmPasswordController.value.text) {
-                                Fluttertoast.showToast(msg: "register.password_match".tr());
-                              }
-                              if (cubit.formKey.currentState!.validate()) {
-                                cubit.areaOfCityDropDownValue == null
-                                    ? () {}
-                                    : cubit.userSignUp(
-                                        firstName: cubit.firstNameController.text,
-                                        lastName: cubit.lastNameController.text,
-                                        phone: cubit.phoneController.text,
-                                        email: cubit.emailController.text.toLowerCase().trim(),
-                                        password: cubit.passwordController.text.toLowerCase().trim(),
-                                        passwordConfirm: cubit.confirmPasswordController.text.toLowerCase().trim(),
-                                        registerAreaId: int.parse(cubit.areaOfCityDropDownValue!));
-                              }
-                            },
-                          ),
-                    const SizedBox(height: 24.0),
-                    Text("register.terms".tr(),
-                        maxLines: 5,
-                        softWrap: true,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(fontSize: 14.0)),
-                  ],
-                ),
-              );
-            },
-          ),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );

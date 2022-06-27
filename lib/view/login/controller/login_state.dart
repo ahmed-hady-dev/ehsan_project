@@ -14,11 +14,7 @@ class ChangeSelectedButtonState extends LoginState {}
 
 class LoginLoadingState extends LoginState {}
 
-class LoginSuccessState extends LoginState {
-  // final UserModel userModel;
-  //
-  // LoginSuccessState({required this.userModel});
-}
+class LoginSuccessState extends LoginState {}
 
 class LoginLErrorState extends LoginState {
   final String error;

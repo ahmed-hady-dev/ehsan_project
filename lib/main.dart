@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/getStorageCacheHelper/get_storage_cache_helper.dart';
 import 'firebase_options.dart';
@@ -13,10 +14,15 @@ import 'core/theme/theme_cubit.dart';
 import 'core/blocObserver/bloc_observer.dart';
 import 'core/dioHelper/dio_helper.dart';
 import 'core/router/router.dart';
-import 'view/on_boarding/on_boarding_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //===============================================================
+  //==== to make sure the app in portrait mode ====
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitDown,
+    DeviceOrientation.portraitUp,
+  ]);
   //===============================================================
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Widget? home;
@@ -68,7 +74,6 @@ class MyApp extends StatelessWidget {
           builder: (context, state) {
             var themeCubit = ThemeCubit.get(context).isDark;
             return MaterialApp(
-              //TODO: add your application name here
               title: 'Ehsan Charity Platform',
               debugShowCheckedModeBanner: false,
               navigatorKey: navigatorKey,
@@ -79,7 +84,8 @@ class MyApp extends StatelessWidget {
               locale: context.locale,
               supportedLocales: context.supportedLocales,
               localizationsDelegates: context.localizationDelegates,
-              home: isOnBoardingDone ? const LoginView() : OnBoardingView(),
+              home: const HomeView(),
+              // home: isOnBoardingDone ? const LoginView() : OnBoardingView(),
             );
           },
         ));

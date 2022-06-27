@@ -1,12 +1,19 @@
+import 'package:ehsan_project/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class FirstNameTextField extends StatelessWidget {
   final String hintText;
+  final FocusNode? focusNode;
   final TextEditingController? controller;
   final Function(String)? onFieldSubmitted;
 
-  const FirstNameTextField({Key? key, required this.hintText, required this.controller, required this.onFieldSubmitted})
-      : super(key: key);
+  const FirstNameTextField({
+    Key? key,
+    required this.hintText,
+    required this.controller,
+    required this.onFieldSubmitted,
+    this.focusNode,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -20,7 +27,14 @@ class FirstNameTextField extends StatelessWidget {
         }
       },
       onFieldSubmitted: onFieldSubmitted,
-      decoration: InputDecoration(hintText: hintText, prefixIcon: const Icon(Icons.person_outlined)),
+      focusNode: focusNode,
+      decoration: InputDecoration(
+        hintText: hintText,
+        prefixIcon: const Icon(
+          Icons.person_outlined,
+          color: AppColors.blue6,
+        ),
+      ),
     );
   }
 }

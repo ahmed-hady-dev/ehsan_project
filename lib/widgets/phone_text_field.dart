@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 
+import '../constants/app_colors.dart';
+
 class PhoneTextField extends StatelessWidget {
   const PhoneTextField({
     Key? key,
     required this.hintText,
     required this.controller,
     required this.onFieldSubmitted,
+    this.focusNode,
   }) : super(key: key);
 
   final String hintText;
+  final FocusNode? focusNode;
+
   final TextEditingController? controller;
   final Function(String)? onFieldSubmitted;
 
@@ -27,7 +32,13 @@ class PhoneTextField extends StatelessWidget {
         }
       },
       onFieldSubmitted: onFieldSubmitted,
-      decoration: InputDecoration(hintText: hintText, prefixIcon: const Icon(Icons.phone_outlined)),
+      focusNode: focusNode,
+      decoration: InputDecoration(
+          hintText: hintText,
+          prefixIcon: const Icon(
+            Icons.phone_outlined,
+            color: AppColors.blue6,
+          )),
     );
   }
 }

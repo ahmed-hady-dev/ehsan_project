@@ -2,12 +2,17 @@
 
 import 'package:flutter/material.dart';
 
+import '../constants/app_colors.dart';
+
 class LastNameTextField extends StatelessWidget {
   final String hintText;
+  final FocusNode? focusNode;
+
   final TextEditingController? controller;
   final Function(String)? onFieldSubmitted;
 
-  const LastNameTextField({Key? key, required this.hintText, required this.controller, required this.onFieldSubmitted})
+  const LastNameTextField(
+      {Key? key, required this.hintText, required this.controller, this.focusNode, required this.onFieldSubmitted})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,13 @@ class LastNameTextField extends StatelessWidget {
         }
       },
       onFieldSubmitted: onFieldSubmitted,
-      decoration: InputDecoration(hintText: hintText, prefixIcon: const Icon(Icons.person_outlined)),
+      focusNode: focusNode,
+      decoration: InputDecoration(
+          hintText: hintText,
+          prefixIcon: const Icon(
+            Icons.person_outlined,
+            color: AppColors.blue6,
+          )),
     );
   }
 }

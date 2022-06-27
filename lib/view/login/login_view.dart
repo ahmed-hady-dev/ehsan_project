@@ -18,75 +18,63 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: BlocProvider(
-          create: (context) => LoginCubit(),
-          child: BlocConsumer<LoginCubit, LoginState>(
-            listener: (context, state) {
-              if (state is LoginSuccessState) {
-                // if (state.userModel.tokenType == 'bearer') {
-                //   Fluttertoast.showToast(msg: 'تم نسجيل الدخول بنجاح');
-                //   MagicRouter.navigateAndPopAll(const HomeView());
-                // } else if (state.userModel.status == 0 || state.userModel.status != null) {
-                //   Fluttertoast.showToast(msg: "حدثت مشكله أثناء تسجيل الدخول");
-                // }
-              }
-            },
-            builder: (context, state) {
-              final cubit = LoginCubit.get(context);
-              return Form(
-                key: cubit.formKey,
-                child: ListView(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  children: <Widget>[
-                    const LogoImage(),
-                    const LoginText(),
-                    const Divider(color: Colors.black),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        RoundedButton(
-                            text: 'فرد',
-                            onPressed: () {
-                              if (!cubit.isPersonSelected) {
-                                cubit.changeSelectedButton();
-                              }
-                            },
-                            isSelected: !cubit.isPersonSelected),
-                        Text('أو', style: Theme.of(context).textTheme.headline6),
-                        RoundedButton(
-                            text: 'مؤسسة',
-                            onPressed: () {
-                              if (cubit.isPersonSelected) {
-                                cubit.changeSelectedButton();
-                              }
-                            },
-                            isSelected: cubit.isPersonSelected),
-                      ],
-                    ),
-                    cubit.isPersonSelected ? PersonColumn(cubit: cubit) : OrganizationColumn(cubit: cubit),
-                    const TextButtonRow(),
-                    const SizedBox(height: 32.0),
-                    state is LoginLoadingState
-                        ? const LoadingWidget()
-                        : MainButton(
-                            text: "تسجيل الدخول",
-                            horizontalPadding: 0,
-                            onPressed: () async {
-                              if (cubit.formKey.currentState!.validate()) {
-                                // cubit.userLogin(
-                                //     email: cubit.emailController.text.toLowerCase().trim(),
-                                //     password: cubit.passwordController.text.toLowerCase().trim());
-                                MagicRouter.navigateAndPopAll(const HomeView());
-                              }
-                            },
-                          ),
-                  ],
-                ),
-              );
-            },
-          ),
+    return Scaffold(
+      body: BlocProvider(
+        create: (context) => LoginCubit(),
+        child: BlocConsumer<LoginCubit, LoginState>(
+          listener: (context, state) {
+            if (state is LoginSuccessState) {}
+          },
+          builder: (context, state) {
+            final cubit = LoginCubit.get(context);
+            return Form(
+              key: cubit.formKey,
+              child: ListView(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                children: <Widget>[
+                  const LogoImage(),
+                  const LoginText(),
+                  const Divider(color: Colors.black),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      RoundedButton(
+                          text: 'فرد',
+                          onPressed: () {
+                            if (!cubit.isPersonSelected) {
+                              cubit.changeSelectedButton();
+                            }
+                          },
+                          isSelected: !cubit.isPersonSelected),
+                      Text('أو', style: Theme.of(context).textTheme.headline6),
+                      RoundedButton(
+                          text: 'مؤسسة',
+                          onPressed: () {
+                            if (cubit.isPersonSelected) {
+                              cubit.changeSelectedButton();
+                            }
+                          },
+                          isSelected: cubit.isPersonSelected),
+                    ],
+                  ),
+                  cubit.isPersonSelected ? PersonColumn(cubit: cubit) : OrganizationColumn(cubit: cubit),
+                  const TextButtonRow(),
+                  const SizedBox(height: 32.0),
+                  state is LoginLoadingState
+                      ? const LoadingWidget()
+                      : MainButton(
+                          text: "تسجيل الدخول",
+                          horizontalPadding: 0,
+                          onPressed: () async {
+                            if (cubit.formKey.currentState!.validate()) {
+                              MagicRouter.navigateAndPopAll(const HomeView());
+                            }
+                          },
+                        ),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );
