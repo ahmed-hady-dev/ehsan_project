@@ -1,16 +1,19 @@
+import 'package:ehsan_project/constants/app_colors.dart';
 import 'package:ehsan_project/core/router/router.dart';
 import 'package:ehsan_project/view/home/home_view.dart';
+import 'package:ehsan_project/view/interests/interests_view.dart';
 import 'package:ehsan_project/view/login/components/organization_column.dart';
 import 'package:ehsan_project/view/login/components/text_button_row.dart';
 import 'package:ehsan_project/view/login/controller/login_cubit.dart';
 import 'package:ehsan_project/view/login/components/login_text.dart';
 import 'package:ehsan_project/widgets/loading_widget.dart';
-import 'package:ehsan_project/widgets/main_button.dart';
 import 'package:ehsan_project/widgets/rounded_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../widgets/logo_image.dart';
+import '../../widgets/solid_color_button.dart';
+import '../register/register_view.dart';
 import 'components/person_column.dart';
 
 class LoginView extends StatelessWidget {
@@ -19,6 +22,7 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF7ED0CF),
       body: BlocProvider(
         create: (context) => LoginCubit(),
         child: BlocConsumer<LoginCubit, LoginState>(
@@ -34,7 +38,7 @@ class LoginView extends StatelessWidget {
                 children: <Widget>[
                   const LogoImage(),
                   const LoginText(),
-                  const Divider(color: Colors.black),
+                  const Divider(color: AppColors.darkBlue, thickness: 2.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
@@ -46,7 +50,7 @@ class LoginView extends StatelessWidget {
                             }
                           },
                           isSelected: !cubit.isPersonSelected),
-                      Text('أو', style: Theme.of(context).textTheme.headline6),
+                      Text('أو', style: Theme.of(context).textTheme.headline6!.copyWith(color: AppColors.darkBlue)),
                       RoundedButton(
                           text: 'مؤسسة',
                           onPressed: () {
@@ -58,16 +62,21 @@ class LoginView extends StatelessWidget {
                     ],
                   ),
                   cubit.isPersonSelected ? PersonColumn(cubit: cubit) : OrganizationColumn(cubit: cubit),
-                  const TextButtonRow(),
-                  const SizedBox(height: 32.0),
+                  TextButtonRow(
+                    text: 'ليس لديك حساب؟ سجل الان',
+                    onPressed: () => MagicRouter.navigateTo(
+                      const RegisterView(),
+                    ),
+                  ),
+                  const SizedBox(height: 8.0),
                   state is LoginLoadingState
                       ? const LoadingWidget()
-                      : MainButton(
+                      : SolidColorButton(
                           text: "تسجيل الدخول",
                           horizontalPadding: 0,
                           onPressed: () async {
                             if (cubit.formKey.currentState!.validate()) {
-                              MagicRouter.navigateAndPopAll(const HomeView());
+                              MagicRouter.navigateAndPopAll(const InterestsView());
                             }
                           },
                         ),

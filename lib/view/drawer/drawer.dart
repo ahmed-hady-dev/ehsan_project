@@ -18,7 +18,6 @@ class NavigationDrawer extends StatelessWidget {
             DrawerHeaderBody(),
             DrawerBody(),
             SizedBox(height: 22.0),
-            // DrawerFooter(),
           ],
         ),
       ),

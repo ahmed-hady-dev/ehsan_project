@@ -19,22 +19,23 @@ ThemeData lightTheme(BuildContext context) {
         ),
     inputDecorationTheme: InputDecorationTheme(
       focusColor: AppColors.blue6,
-      filled: false,
+      filled: true,
+      fillColor: Colors.white,
       contentPadding: const EdgeInsets.all(8),
       border: OutlineInputBorder(
-        borderSide: const BorderSide(color: AppColors.blue6),
+        borderSide: const BorderSide(color: Colors.transparent),
         borderRadius: BorderRadius.circular(18),
       ),
       enabledBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: AppColors.blue6),
+        borderSide: const BorderSide(color: Colors.transparent),
         borderRadius: BorderRadius.circular(18),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: AppColors.blue6),
+        borderSide: const BorderSide(color: Colors.transparent),
         borderRadius: BorderRadius.circular(18),
       ),
       disabledBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: AppColors.blue6),
+        borderSide: const BorderSide(color: Colors.transparent),
         borderRadius: BorderRadius.circular(18),
       ),
     ),

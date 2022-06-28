@@ -30,10 +30,6 @@ class FirstNameTextField extends StatelessWidget {
       focusNode: focusNode,
       decoration: InputDecoration(
         hintText: hintText,
-        prefixIcon: const Icon(
-          Icons.person_outlined,
-          color: AppColors.blue6,
-        ),
       ),
     );
   }

@@ -30,11 +30,8 @@ class BloodTypeTextField extends StatelessWidget {
       onFieldSubmitted: onFieldSubmitted,
       focusNode: focusNode,
       decoration: InputDecoration(
-          hintText: hintText,
-          prefixIcon: const Icon(
-            Icons.bloodtype_outlined,
-            color: AppColors.blue6,
-          )),
+        hintText: hintText,
+      ),
     );
   }
 }

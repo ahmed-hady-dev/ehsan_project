@@ -11,16 +11,25 @@ class PersonColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+        const Padding(
+          padding: EdgeInsets.only(right: 12.0, bottom: 8.0),
+          child: Text('البريد الإلكتروني', style: TextStyle(color: Colors.white), textAlign: TextAlign.start),
+        ),
         EmailTextField(
-            hintText: "البريد الإلكتروني",
+            hintText: " اكتب البريد الإلكتروني",
             controller: cubit.emailController,
             onFieldSubmitted: (value) {
               if (cubit.formKey.currentState!.validate()) {}
             }),
-        const SizedBox(height: 12.0),
+        const SizedBox(height: 8.0),
+        const Padding(
+          padding: EdgeInsets.only(right: 8.0, bottom: 8.0),
+          child: Text('كلمة المرور', style: TextStyle(color: Colors.white), textAlign: TextAlign.start),
+        ),
         PasswordTextField(
-          hintText: "كلمة المرور",
+          hintText: "اكتب كلمة المرور",
           controller: cubit.passwordController,
           onFieldSubmitted: (value) {
             if (cubit.formKey.currentState!.validate()) {}

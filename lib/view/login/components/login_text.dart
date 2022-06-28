@@ -16,7 +16,7 @@ class LoginText extends StatelessWidget {
         softWrap: true,
         overflow: TextOverflow.ellipsis,
         textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.headline6!.copyWith(color: AppColors.blue6, fontSize: 24),
+        style: Theme.of(context).textTheme.headline6!.copyWith(color: Colors.white, fontSize: 24),
       ),
     );
   }

@@ -36,11 +36,8 @@ class EmailTextField extends StatelessWidget {
       onFieldSubmitted: onFieldSubmitted,
       focusNode: focusNode,
       decoration: InputDecoration(
-          hintText: hintText,
-          prefixIcon: const Icon(
-            Icons.email_outlined,
-            color: AppColors.blue6,
-          )),
+        hintText: hintText,
+      ),
     );
   }
 }

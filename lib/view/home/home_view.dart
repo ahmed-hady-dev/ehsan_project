@@ -4,7 +4,7 @@ import 'package:ehsan_project/view/event/event_view.dart';
 import 'package:ehsan_project/view/home/component/home_carousel.dart';
 import 'package:ehsan_project/view/home/component/recommended_charities_row.dart';
 import 'package:ehsan_project/view/home/controller/home_cubit.dart';
-import 'package:ehsan_project/view/home/market_banner.dart';
+import 'package:ehsan_project/view/home/component/market_banner.dart';
 import 'package:ehsan_project/view/market/market_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,6 +56,7 @@ class HomeView extends StatelessWidget {
                 const SizedBox(height: 8.0),
                 CharitiesGridView(
                   imageList: cubit.homeCharities,
+                  itemCount: 4,
                   onTap: () => MagicRouter.navigateTo(const CharityView()),
                 ),
                 SectionHeader(

@@ -15,6 +15,10 @@ import 'package:ehsan_project/widgets/password_text_field.dart';
 import 'package:ehsan_project/widgets/phone_text_field.dart';
 import 'package:ehsan_project/widgets/last_name_text_field.dart';
 
+import '../../core/router/router.dart';
+import '../../widgets/solid_color_button.dart';
+import '../login/components/text_button_row.dart';
+import '../login/login_view.dart';
 import 'components/address_text_field.dart';
 import 'components/blood_type_text_field.dart';
 
@@ -24,6 +28,7 @@ class RegisterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF7ED0CF),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0.0,
@@ -52,79 +57,102 @@ class RegisterView extends StatelessWidget {
                 shrinkWrap: true,
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 children: <Widget>[
-                  const LogoImage(topPadding: 0, bottomPadding: 48.0),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                          flex: 1,
-                          child: FirstNameTextField(
-                            hintText: "الإسم الأول",
-                            controller: cubit.firstNameController,
-                            focusNode: cubit.firstNameFocusNode,
-                            onFieldSubmitted: (_) => cubit.lastNameFocusNode.requestFocus(),
-                          )),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        flex: 1,
-                        child: LastNameTextField(
-                          hintText: "الإسم الأخير",
-                          controller: cubit.lastNameController,
-                          focusNode: cubit.lastNameFocusNode,
-                          onFieldSubmitted: (_) => cubit.emailFocusNode.requestFocus(),
-                        ),
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0, bottom: 4.0),
+                    child: Text('سجل دخولك مجاناَ !',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall!
+                            .copyWith(color: AppColors.darkBlue, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.start),
                   ),
-                  const SizedBox(height: 12.0),
+                  const Padding(
+                    padding: EdgeInsets.only(right: 8.0, bottom: 4.0),
+                    child: Text('الإسم', style: TextStyle(color: Colors.white), textAlign: TextAlign.start),
+                  ),
+                  FirstNameTextField(
+                    hintText: "اكتب الاسم بالكامل",
+                    controller: cubit.firstNameController,
+                    focusNode: cubit.firstNameFocusNode,
+                    onFieldSubmitted: (_) => cubit.lastNameFocusNode.requestFocus(),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(right: 8.0, bottom: 4.0),
+                    child: Text('البريد الالكتروني', style: TextStyle(color: Colors.white), textAlign: TextAlign.start),
+                  ),
                   EmailTextField(
-                    hintText: "البريد الإلكتروني",
+                    hintText: "اكتب البريد الالكتروني",
                     controller: cubit.emailController,
                     focusNode: cubit.emailFocusNode,
                     onFieldSubmitted: (_) => cubit.passwordFocusNode.requestFocus(),
                   ),
-                  const SizedBox(height: 12.0),
+                  const Padding(
+                    padding: EdgeInsets.only(right: 8.0, bottom: 4.0),
+                    child: Text('كلمة المرور', style: TextStyle(color: Colors.white), textAlign: TextAlign.start),
+                  ),
                   PasswordTextField(
-                      hintText: "كلمة السر",
+                      hintText: "اكتب كلمة المرور",
                       controller: cubit.passwordController,
                       focusNode: cubit.passwordFocusNode,
                       onFieldSubmitted: (_) => cubit.confirmPasswordFocusNode.requestFocus(),
                       obscureText: cubit.isPassword,
                       onPressed: () => cubit.changePasswordVisibility(),
                       icon: cubit.suffix),
-                  const SizedBox(height: 12.0),
+                  const Padding(
+                    padding: EdgeInsets.only(right: 8.0, bottom: 4.0),
+                    child: Text('تأكيد كلمة المرور', style: TextStyle(color: Colors.white), textAlign: TextAlign.start),
+                  ),
                   ConfirmPasswordTextField(
-                      hintText: "تأكيد كلمة السر",
+                      hintText: "تأكيد كلمة المرور",
                       controller: cubit.confirmPasswordController,
                       focusNode: cubit.confirmPasswordFocusNode,
                       onFieldSubmitted: (_) => cubit.phoneFocusNode.requestFocus(),
                       obscureText: cubit.isPasswordConfirm,
                       onPressed: () => cubit.changeConfirmPasswordVisibility(),
                       icon: cubit.suffixConfirm),
-                  const SizedBox(height: 12.0),
+                  const Padding(
+                    padding: EdgeInsets.only(right: 8.0, bottom: 4.0),
+                    child: Text('رقم الهاتف', style: TextStyle(color: Colors.white), textAlign: TextAlign.start),
+                  ),
                   PhoneTextField(
-                      hintText: "رقم الهاتف",
+                      hintText: "اكتب رقم الهاتف",
                       controller: cubit.phoneController,
                       focusNode: cubit.phoneFocusNode,
                       onFieldSubmitted: (_) => cubit.bloodTypeFocusNode.requestFocus()),
-                  const SizedBox(height: 12.0),
+                  const Padding(
+                    padding: EdgeInsets.only(right: 8.0, bottom: 4.0),
+                    child: Text('فصيلة الدم', style: TextStyle(color: Colors.white), textAlign: TextAlign.start),
+                  ),
                   BloodTypeTextField(
-                      hintText: "فصيلة الدم",
+                      hintText: "اكتب فصيلة الدم",
                       controller: cubit.bloodTypeController,
                       focusNode: cubit.bloodTypeFocusNode,
                       onFieldSubmitted: (_) => cubit.addressFocusNode.requestFocus()),
-                  const SizedBox(height: 12.0),
+                  const Padding(
+                    padding: EdgeInsets.only(right: 8.0, bottom: 4.0),
+                    child: Text('العنوان', style: TextStyle(color: Colors.white), textAlign: TextAlign.start),
+                  ),
                   AddressTextField(
-                      hintText: "العنوان",
+                      hintText: "اكتب العنوان",
                       controller: cubit.addressController,
                       focusNode: cubit.addressFocusNode,
                       onFieldSubmitted: (_) => cubit.registerWithEmail()),
                   const SizedBox(height: 12.0),
                   state is RegisterLoadingState
                       ? const LoadingWidget()
-                      : MainButton(
+                      : SolidColorButton(
                           text: 'إنشاء حساب',
                           onPressed: () => cubit.registerWithEmail(),
                         ),
+                  Center(
+                    child: TextButtonRow(
+                      text: 'لديك حساب ؟ تسجيل الدخول',
+                      onPressed: () => MagicRouter.navigateAndPopAll(
+                        const LoginView(),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 12.0),
                 ],
               ),
             );

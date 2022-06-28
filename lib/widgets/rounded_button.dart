@@ -5,7 +5,7 @@ class RoundedButton extends StatelessWidget {
   final String text;
   final Function() onPressed;
   final bool isSelected;
-  final double borderRadius = 12;
+  final double borderRadius = 22;
 
   const RoundedButton({required this.text, required this.onPressed, Key? key, this.isSelected = false})
       : super(key: key);
@@ -22,7 +22,7 @@ class RoundedButton extends StatelessWidget {
         style: ButtonStyle(
           elevation: MaterialStateProperty.all(0),
           alignment: Alignment.center,
-          backgroundColor: MaterialStateProperty.all(isSelected ? AppColors.blue6 : Colors.transparent),
+          backgroundColor: MaterialStateProperty.all(isSelected ? AppColors.darkBlue : Colors.white),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius),
@@ -37,7 +37,7 @@ class RoundedButton extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .subtitle1!
-              .copyWith(color: isSelected ? Colors.white : AppColors.blue6, fontSize: 24.0),
+              .copyWith(color: isSelected ? Colors.white : AppColors.darkBlue, fontSize: 24.0),
         ),
       ),
     );

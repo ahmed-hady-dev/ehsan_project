@@ -12,16 +12,25 @@ class OrganizationColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+        const Padding(
+          padding: EdgeInsets.only(right: 12.0, bottom: 8.0),
+          child: Text('إسم الجمعية', style: TextStyle(color: Colors.white), textAlign: TextAlign.start),
+        ),
         EmailTextField(
-            hintText: "إسم الجمعية",
+            hintText: "اكتب الاسم بالكامل",
             controller: cubit.emailController,
             onFieldSubmitted: (value) {
               if (cubit.formKey.currentState!.validate()) {}
             }),
-        const SizedBox(height: 12.0),
+        const SizedBox(height: 8.0),
+        const Padding(
+          padding: EdgeInsets.only(right: 8.0, bottom: 8.0),
+          child: Text('الكود السري', style: TextStyle(color: Colors.white), textAlign: TextAlign.start),
+        ),
         PasswordTextField(
-          hintText: "الكود السري",
+          hintText: "اكتب كود المؤسسة",
           controller: cubit.passwordController,
           onFieldSubmitted: (value) {
             if (cubit.formKey.currentState!.validate()) {}

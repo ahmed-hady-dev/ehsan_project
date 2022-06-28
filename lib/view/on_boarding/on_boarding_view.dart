@@ -12,35 +12,50 @@ class OnBoardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: OnBoard(
-        pageController: _pageController,
-        onBoardData: onBoardData,
-        descriptionStyles: Theme.of(context).textTheme.bodyText1,
-        pageIndicatorStyle: const PageIndicatorStyle(
-          width: 100,
-          inactiveColor: Colors.black38,
-          activeColor: AppColors.blue6,
-          inactiveSize: Size(8, 8),
-          activeSize: Size(12, 12),
-        ),
-        skipButton: TextButton(
-          onPressed: () async => await done(),
-          child: const Text(
-            "تخطي",
-            style: TextStyle(color: AppColors.darkBlue),
+      backgroundColor: Colors.white,
+      body: Stack(children: [
+        Positioned(
+          top: -100,
+          child: Transform.rotate(
+            angle: -30,
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.7,
+              width: 500,
+              color: AppColors.blue6.withOpacity(0.5),
+            ),
           ),
         ),
-        nextButton: OnBoardConsumer(
-          builder: (context, ref, child) {
-            final state = ref.watch(onBoardStateProvider);
-            return MainButton(
-              text: state.isLastPage ? "تم" : "التالي",
-              onPressed: () => _onNextTap(state),
-              horizontalPadding: 16.0,
-            );
-          },
-        ),
-      ),
+        OnBoard(
+          pageController: _pageController,
+          onBoardData: onBoardData,
+          descriptionStyles: Theme.of(context).textTheme.bodyText1,
+          imageWidth: 300,
+          pageIndicatorStyle: const PageIndicatorStyle(
+            width: 100,
+            inactiveColor: Colors.black38,
+            activeColor: AppColors.blue6,
+            inactiveSize: Size(8, 8),
+            activeSize: Size(12, 12),
+          ),
+          skipButton: TextButton(
+            onPressed: () async => await done(),
+            child: const Text(
+              "تخطي",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          nextButton: OnBoardConsumer(
+            builder: (context, ref, child) {
+              final state = ref.watch(onBoardStateProvider);
+              return MainButton(
+                text: state.isLastPage ? "تم" : "التالي",
+                onPressed: () => _onNextTap(state),
+                horizontalPadding: 16.0,
+              );
+            },
+          ),
+        )
+      ]),
     );
   }
 
@@ -64,9 +79,10 @@ class OnBoardingView extends StatelessWidget {
 
 final List<OnBoardModel> onBoardData = [
   const OnBoardModel(
-    description: '',
-    title: "إذا استطعت أن ترسم ابتسامة لا تتأخر",
-    imgUrl: "assets/images/on_boarding1.png",
+    description: "",
+    title: '''قال رسول الله -صلى الله عليه وسلم
+    ( خير الناس أنفعهم للناس )''',
+    imgUrl: 'assets/images/on_boarding1.png',
   ),
   const OnBoardModel(
     description: "",
@@ -74,9 +90,8 @@ final List<OnBoardModel> onBoardData = [
     imgUrl: 'assets/images/on_boarding2.png',
   ),
   const OnBoardModel(
-    description: "",
-    title: '''قال رسول الله -صلى الله عليه وسلم
-    ( خير الناس أنفعهم للناس )''',
-    imgUrl: 'assets/images/on_boarding3.png',
+    description: '',
+    title: "إذا استطعت أن ترسم ابتسامة لا تتأخر",
+    imgUrl: "assets/images/on_boarding3.png",
   ),
 ];
